@@ -12,6 +12,7 @@ def post_to_add_batch(ref, sku, qty, eta):
         f'{url}/add_batch',
         json={'ref': ref, 'sku': sku, 'qty': qty, 'eta': eta}
     )
+    print(r.text)
     assert r.status_code == 201
 
 
