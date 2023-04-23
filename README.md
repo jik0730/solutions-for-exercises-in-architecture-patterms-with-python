@@ -1,4 +1,4 @@
-# Example application code for the python architecture book
+# Example application code for the python architecture book (My solution for the exercises)
 
 ## Chapters
 
@@ -51,4 +51,12 @@ pytest tests/e2e
 ## Makefile
 
 There are more useful commands in the makefile, have a look and try them out.
+```
 
+## To-do 
+- [x] Chapter_01
+- [x] Chapter_02
+- [x] Chapter_04
+- [x] Chapter_05 (Same as Chapter_06 and the solution is written in Chapter_05)
+- [x] Chapter_07
+- [ ] Chapter_08
