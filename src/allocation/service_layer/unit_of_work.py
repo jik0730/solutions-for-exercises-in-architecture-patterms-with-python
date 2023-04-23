@@ -23,6 +23,12 @@ class AbstractUnitOfWork(abc.ABC):
     @abc.abstractmethod
     def rollback(self):
         raise NotImplementedError
+    
+    def __enter__(self):
+        pass
+
+    def __exit__(self, *args):
+        pass
 
 
 
@@ -31,8 +37,26 @@ DEFAULT_SESSION_FACTORY = sessionmaker(bind=create_engine(
 ))
 
 
-class SqlAlchemyUnitOfWork:
-    ...
+class SqlAlchemyUnitOfWork(AbstractUnitOfWork):
+    
+    def __init__(self, session_factory=DEFAULT_SESSION_FACTORY):
+        self.session_factory = session_factory
+
+    def commit(self):
+        self.session.commit()
+
+    def rollback(self):
+        self.session.rollback()
+
+    def __enter__(self):
+        self.session = self.session_factory()
+        self.batches = repository.SqlAlchemyRepository(self.session)
+        return super().__enter__()
+
+    def __exit__(self, *args):
+        super().__exit__(*args)
+        self.session.close()
+
 
 # One alternative would be to define a `start_uow` function,
 # or a UnitOfWorkStarter or UnitOfWorkManager that does the
